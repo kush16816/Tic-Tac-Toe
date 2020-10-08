@@ -26,10 +26,13 @@ public class TicTacToeGame {
 			compSymbol = 'o';
 		return board;
 	}
-	
+
 	public static void showBoard(char[] board) {
-		for(int boardIndex = 1; boardIndex < 10; boardIndex += 3) {
-			System.out.println(board[boardIndex] + " " + board[boardIndex+1] + " " + board[boardIndex+2]);
+		for (int boardIndex = 1; boardIndex < 10; boardIndex += 3) {
+			System.out.println(board[boardIndex] + " | " + board[boardIndex + 1] + " | " + board[boardIndex + 2]);
+			if (boardIndex < 6) {
+				System.out.println("_________");
+			}
 		}
 	}
 
