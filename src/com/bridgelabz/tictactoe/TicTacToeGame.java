@@ -52,10 +52,13 @@ public class TicTacToeGame {
 		System.out.println("Enter the Index you wish to occupy");
 		Scanner userInput = new Scanner(System.in);
 		int boardIndex = userInput.nextInt();
+		if(0>boardIndex||boardIndex>9) {
+			System.out.println("Your input is invalid");
+		}
 		if(board[boardIndex]==' ') {
-			System.out.println("The Index is free");
+			System.out.println("The Index " + boardIndex + " is free");
 		} else {
-			System.out.println("The Index is occupied");
+			System.out.println("The Index " + boardIndex + " is occupied");
 		}
 	}
 
