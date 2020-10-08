@@ -9,6 +9,11 @@ public class TicTacToeGame {
 	/**
 	 * @return returns
 	 */
+
+	public enum Players {
+		Player, Computer
+	};
+
 	public static char[] createBoard() {
 		char board[] = new char[10];
 		for (int boardIndex = 1; boardIndex < 10; boardIndex++) {
@@ -21,7 +26,7 @@ public class TicTacToeGame {
 	 * @param board
 	 * @return : Returns board.
 	 */
-	public static char[] chooseSymbol(char[] board) {
+	public static char chooseSymbol() {
 		System.out.println("Please enter the choice x or o");
 		Scanner userInput = new Scanner(System.in);
 		String userPlay = userInput.next();
@@ -29,7 +34,7 @@ public class TicTacToeGame {
 		char compSymbol = 'x';
 		if (userSymbol == 'x')
 			compSymbol = 'o';
-		return board;
+		return userSymbol;
 	}
 
 	/**
@@ -42,6 +47,7 @@ public class TicTacToeGame {
 				System.out.println("---------");
 			}
 		}
+		System.out.println("_________");
 	}
 
 	/**
@@ -71,19 +77,63 @@ public class TicTacToeGame {
 	/**
 	 * @return toss : This determines if player plays first
 	 */
-	public static int tossForFirstChance() {
+	public static Players tossForFirstChance() {
 		int toss = (int) (Math.random() * 10) % 2;
-		return toss;
+		return (toss == 0) ? Players.Player : Players.Computer;
+	}
+
+	public static void determineWinner(char[] board, Players playerTurn, char userSymbol, char compSymbol) {
+		for (int noOfTurns = 1; noOfTurns < 10; noOfTurns++) {
+			int boardIndex = ensureFreeSpace(board);
+			if (playerTurn == Players.Player) {
+				board = enterSymbol(board, boardIndex, userSymbol);
+				showBoard(board);
+				if (winCheck(board, userSymbol) == true) {
+					System.out.println("User Won");
+					break;
+				}
+				playerTurn = Players.Computer;
+			} else if (playerTurn == Players.Computer) {
+				board = enterSymbol(board, boardIndex, compSymbol);
+				showBoard(board);
+				if (winCheck(board, compSymbol) == true) {
+					System.out.println("Computer Won");
+					break;
+				}
+				playerTurn = Players.Player;
+			}
+		}
+
+	}
+
+	public static boolean winCheck(char[] board, char symbol) {
+		if (board[1] == board[2] && board[1] == board[3] && board[1] == symbol)
+			return true;
+		else if (board[5] == board[2] && board[5] == board[8] && board[1] == symbol)
+			return true;
+		else if (board[1] == board[5] && board[1] == board[9] && board[1] == symbol)
+			return true;
+		else if (board[1] == board[4] && board[1] == board[7] && board[1] == symbol)
+			return true;
+		else if (board[4] == board[5] && board[4] == board[6] && board[5] == symbol)
+			return true;
+		else if (board[7] == board[8] && board[7] == board[9] && board[7] == symbol)
+			return true;
+		else if (board[3] == board[6] && board[6] == board[9] && board[3] == symbol)
+			return true;
+		else if (board[3] == board[5] && board[3] == board[7] && board[3] == symbol)
+			return true;
+		else
+			return false;
 	}
 
 	public static void main(String[] args) {
 		char[] board = createBoard();
-		board = chooseSymbol(board);
+		Players playerTurn = tossForFirstChance();
+		char userSymbol = chooseSymbol();
+		char compSymbol = (userSymbol == 'o') ? 'x' : 'o';
 		int boardIndex;
 		showBoard(board);
-		boardIndex = ensureFreeSpace(board);
-		board = enterSymbol(board, boardIndex, 'x');
-		showBoard(board);
-		int playerTurn = tossForFirstChance();
+		determineWinner(board, playerTurn, userSymbol, compSymbol);
 	}
 }
