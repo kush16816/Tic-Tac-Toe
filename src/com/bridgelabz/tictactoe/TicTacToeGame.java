@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 public class TicTacToeGame {
 	
+	/**
+	 * @return returns
+	 */
 	public static char[] createBoard() {
 		char board[] = new char[10];
 		for(int boardIndex = 1; boardIndex < 10; boardIndex++)
@@ -26,6 +29,6 @@ public class TicTacToeGame {
 	}
 	public static void main(String [] args) {
 		char[] board = createBoard();
-		playChance(board);
+		board = playChance(board);
 	}
 }
