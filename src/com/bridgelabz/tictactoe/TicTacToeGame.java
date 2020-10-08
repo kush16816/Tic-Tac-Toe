@@ -48,7 +48,7 @@ public class TicTacToeGame {
 	 * @param board
 	 * Function to ensure index is free
 	 */
-	public static void ensureFreeSpace (char[] board) {
+	public static int ensureFreeSpace (char[] board) {
 		System.out.println("Enter the Index you wish to occupy");
 		Scanner userInput = new Scanner(System.in);
 		int boardIndex = userInput.nextInt();
@@ -57,15 +57,18 @@ public class TicTacToeGame {
 		}
 		if(board[boardIndex]==' ') {
 			System.out.println("The Index " + boardIndex + " is free");
+			return boardIndex;
 		} else {
 			System.out.println("The Index " + boardIndex + " is occupied");
+			return boardIndex;
 		}
 	}
 
 	public static void main(String[] args) {
 		char[] board = createBoard();
 		board = chooseSymbol(board);
+		int boardIndex;
 		showBoard(board);
-		ensureFreeSpace(board);
+		boardIndex = ensureFreeSpace(board);
 	}
 }
