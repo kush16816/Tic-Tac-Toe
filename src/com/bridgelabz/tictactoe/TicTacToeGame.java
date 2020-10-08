@@ -1,6 +1,7 @@
 
 package com.bridgelabz.tictactoe;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToeGame {
@@ -62,9 +63,17 @@ public class TicTacToeGame {
 		}
 	}
 
-	public static char[] enterSymbol(char[] board, int boardIndex) {
-		board[boardIndex] = 'x';
+	public static char[] enterSymbol(char[] board, int boardIndex, char letter) {
+		board[boardIndex] = letter;
 		return board;
+	}
+
+	/**
+	 * @return toss : This determines if player plays first
+	 */
+	public static int tossForFirstChance() {
+		int toss = (int) (Math.random() * 10) % 2;
+		return toss;
 	}
 
 	public static void main(String[] args) {
@@ -73,7 +82,8 @@ public class TicTacToeGame {
 		int boardIndex;
 		showBoard(board);
 		boardIndex = ensureFreeSpace(board);
-		board = enterSymbol(board, boardIndex);
+		board = enterSymbol(board, boardIndex, 'x');
 		showBoard(board);
-		}
+		int playerTurn = tossForFirstChance();
+	}
 }
